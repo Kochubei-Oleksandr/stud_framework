@@ -81,4 +81,24 @@ abstract class Model
 
         return $this->dbo->setQuery($sql)->getList(get_class($this));
     }
+
+    /**
+     * Get vip-list of records
+     *
+     * @return array
+     */
+    public function getSortList() {
+        $sql = 'SELECT * FROM `' . $this->tableName . 
+            '` WHERE `'.$this->sortStatus.'` =' . $this->param ;        
+        
+        return $this->dbo->setQuery($sql)->getList(get_class($this));
+    }
+
+    public function register() {
+        //@TODO: Implement this
+    }
+
+    public function login() {
+        //@TODO: Implement this
+    }
 }
