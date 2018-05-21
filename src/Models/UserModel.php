@@ -47,4 +47,13 @@ class UserModel extends Model
 
         return $this->dbo->setQuery($sql)->getResult($this);
     }
+
+    public function saveUser($name, $role, $password, $email, $created_at, $token){
+        $sql = sprintf("INSERT INTO `%s` (`name`,`id_role_user`,`password`,`email`,`created_at`,`token`) VALUES
+            ('%s','%s','%s','%s','%s','%s')", $this->tableName, $name, $role, md5($password), $email, $created_at, $token);
+        
+
+        return $this->dbo->setQuery($sql)->getResult($this);
+        var_dump($sql); die;
+    }
 }
