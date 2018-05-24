@@ -28,7 +28,7 @@ class UserController
         if(empty($name) || empty($password) || empty($email)) {
             throw new AuthRequiredException('name or password or email = null');
         } else {
-            $created_at = $request->get('created_at', '2018-05-09 00:00:0');
+            $created_at = date('Y-m-d');
             $token = md5(uniqid());
             $role = (int)1;
 
