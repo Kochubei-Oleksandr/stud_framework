@@ -41,6 +41,24 @@ class GenericConnector implements DBOConnectorInterface
      *
      * @param   Target object
      *
+     * @return  Bool
+     */
+    public function getSuccess(&$target) {
+
+        if($this->statement){
+            $result = true;
+        } else {
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get result
+     *
+     * @param   Target object
+     *
      * @return  Object
      */
     public function getResult(&$target) {
