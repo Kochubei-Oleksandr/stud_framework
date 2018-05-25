@@ -77,7 +77,7 @@ abstract class Model
      * @return array
      */
     public function getList() {
-        $sql = 'SELECT * FROM `' . $this->tableName . '`';
+        $sql = 'SELECT * FROM `' . $this->tableName . '` WHERE `'.$this->sortStatusTwo.'` = ' . $this->param . ' ';
 
         return $this->dbo->setQuery($sql)->getList(get_class($this));
     }
@@ -88,8 +88,8 @@ abstract class Model
      * @return array
      */
     public function getSortList() {
-        $sql = 'SELECT * FROM `' . $this->tableName . 
-            '` WHERE `'.$this->sortStatus.'` =' . $this->param ;        
+        $sql = 'SELECT * FROM `' . $this->tableName . '` WHERE `'.$this->sortStatusOne.'` = ' . $this->param . ' 
+            AND `'.$this->sortStatusTwo.'` = ' . $this->param . ' ';       
         
         return $this->dbo->setQuery($sql)->getList(get_class($this));
     }
