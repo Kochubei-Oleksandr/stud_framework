@@ -1,11 +1,8 @@
 <?php
-
 namespace Mindk\Framework\Middleware;
-
 use Mindk\Framework\Http\Request\Request;
 use Mindk\Framework\Http\Response\Response;
 use Optimus\Onion\LayerInterface;
-
 /**
  * Class ACL Route Middleware
  * @package Mindk\Framework\Middleware
@@ -13,7 +10,6 @@ use Optimus\Onion\LayerInterface;
 class CORS implements LayerInterface
 {
     protected $request;
-
     /**
      * CheckOptions constructor.
      */
@@ -21,7 +17,6 @@ class CORS implements LayerInterface
     {
         $this->request = $request;
     }
-
     /**
      * Handler
      *
@@ -29,17 +24,16 @@ class CORS implements LayerInterface
      * @param Closure $next
      */
     public function peel($object, \Closure $next){
-
         if($this->request->getMethod() == 'OPTIONS'){
             $response = new Response('', 204);
         } else {
             $response = $next($object);
         }
-
-        $response->setHeader('Access-Control-Allow-Origin', '*');
+        
+        $response->setHeader('Access-Control-Allow-Credentials', 'true');
+        $response->setHeader('Access-Control-Allow-Origin', 'http://0.0.0.0:1024');
         $response->setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding, APIToken, APIKey');
-        $response->setHeader('Access-Control-Allow-Method', 'POST, GET, OPTIONS, DELETE, PUT, PATCH');
-
+        $response->setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT, PATCH');
         return $response;
     }
 }

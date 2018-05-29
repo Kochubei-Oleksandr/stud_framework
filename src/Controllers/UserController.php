@@ -1,9 +1,12 @@
 <?php
 namespace Mindk\Framework\Controllers;
+
 use Mindk\Framework\Exceptions\AuthRequiredException;
 use Mindk\Framework\Http\Request\Request;
 use Mindk\Framework\Models\UserModel;
 use Mindk\Framework\DB\DBOConnectorInterface;
+use Mindk\Framework\Http\Response\JsonResponse;
+use Mindk\Framework\Http\Response\Response;
 /**
  * Class UserController
  * @package Mindk\Framework\Controllers
@@ -59,6 +62,7 @@ class UserController
         // Generate new access token and save:
         $user->token = md5(uniqid());
         $tokk = $model->returnToken($user->token, $user->id);
+
         if ($tokk == true) {
             return $user->token;
         }
