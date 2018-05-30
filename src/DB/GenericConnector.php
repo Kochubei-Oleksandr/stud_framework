@@ -46,6 +46,26 @@ class GenericConnector implements DBOConnectorInterface
     public function getSuccess(&$target) {
 
         if($this->statement){
+            $this->statement->setFetchMode( \PDO::FETCH_INTO, $target );
+            $result = $this->statement->fetch( \PDO::FETCH_INTO );
+            $result == false ? $result = false : $result = true;
+        } else {
+            $result = null;
+        }
+
+        return $result;
+    }
+
+     /**
+     * Get result
+     *
+     * @param   Target object
+     *
+     * @return  Bool
+     */
+    public function getSuccessStatement(&$target) {
+
+        if($this->statement){
             $result = true;
         } else {
             $result = false;

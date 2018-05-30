@@ -24,6 +24,14 @@ interface DBOConnectorInterface
      */
     public function getSuccess(&$target);
 
+     /**
+     * Get single row result
+     *
+     * @param $target
+     * @return bool
+     */
+    public function getSuccessStatement(&$target);
+
     /**
      * Get single row result
      *

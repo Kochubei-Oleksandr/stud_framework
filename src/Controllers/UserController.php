@@ -26,19 +26,41 @@ class UserController
         
         $name = $request->get('name', '', 'string');
         $password = $request->get('password', '', 'string');
+        $passwordConfirm = $request->get('passwordConfirm', '', 'string');
         $email = $request->get('email', '', 'string');
 
         if(empty($name) || empty($password) || empty($email)) {
             throw new AuthRequiredException('name or password or email = null');
         } else {
-            $created_at = date('Y-m-d');
-            $token = md5(uniqid());
-            $role = (int)1;
-
-            $user = $model->saveUser($name, $role, $password, $email, $created_at, $token);
+            if ($model->checkUserEmail($email) == true) {
+                echo 'На данную почту уже зарегистрирован аккаунт';
+                die;
+            } else {
+                if ($password != $passwordConfirm) {
+                    echo 'Повторный пароль не совпал';
+                    die;
+                }
+    
+                $created_at = date('Y-m-d');
+                $token = md5(uniqid());
+                $role = (int)2;
+    
+                $user = $model->saveUser($name, $role, $password, $email, $created_at, $token);
+            }  
         }
+
         if ($user == true) {
-            return $token;
+            $user = $model->findByCredentials($email, $password);
+            if(empty($user)) {
+                throw new AuthRequiredException('Bad access credentials provided');
+            }
+
+            return [
+                'user_id' => $user->id,
+                'api_token' => $user->token,
+                'name' => $user->name,
+                'user_role' => $user->id_role_user
+            ];
         }
     }
 
@@ -62,9 +84,14 @@ class UserController
         // Generate new access token and save:
         $user->token = md5(uniqid());
         $tokk = $model->returnToken($user->token, $user->id);
-
+        
         if ($tokk == true) {
-            return $user->token;
+            return [
+                'user_id' => $user->id,
+                'api_token' => $user->token,
+                'name' => $user->name,
+                'user_role' => $user->id_role_user
+            ];
         }
     }
 

@@ -28,6 +28,12 @@ class UserModel extends Model
         $sql = sprintf("SELECT * FROM `%s` WHERE `email`='%s' AND `password`='%s'", $this->tableName, $login, md5($password));
         return $this->dbo->setQuery($sql)->getResult($this);
     }
+
+    public function checkUserEmail($email){
+        $sql = sprintf("SELECT * FROM `%s` WHERE `email`='%s'", $this->tableName, $email);
+        return $this->dbo->setQuery($sql)->getSuccess($this);
+    }
+
     /**
      * Find user by access token
      *
@@ -44,11 +50,11 @@ class UserModel extends Model
     public function saveUser($name, $role, $password, $email, $created_at, $token){
         $sql = sprintf("INSERT INTO `%s` (`name`,`id_role_user`,`password`,`email`,`created_at`,`token`) VALUES
             ('%s','%s','%s','%s','%s','%s')", $this->tableName, $name, $role, md5($password), $email, $created_at, $token);
-        return $this->dbo->setQuery($sql)->getSuccess($sql);
+        return $this->dbo->setQuery($sql)->getSuccessStatement($this);
     }
 
     public function returnToken($token, $userId){
         $sql = ("UPDATE `users` SET `token`='".$token."' WHERE `id`=".(int)$userId);
-        return $this->dbo->setQuery($sql)->getSuccess($sql);
+        return $this->dbo->setQuery($sql)->getSuccessStatement($this);
     }
 }
