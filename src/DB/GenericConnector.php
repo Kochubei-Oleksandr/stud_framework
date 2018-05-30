@@ -19,7 +19,7 @@ class GenericConnector implements DBOConnectorInterface
      */
     public function __construct(Config $config)
     {
-        $this->connection = new \PDO(sprintf('mysql:host=%s;dbname=%s;', $config->get('db.host'), $config->get('db.db_name')),
+        $this->connection = new \PDO(sprintf('mysql:host=%s;dbname=%s;charset=utf8;', $config->get('db.host'), $config->get('db.db_name')),
             $config->get('db.user'),
             $config->get('db.password')
         );
