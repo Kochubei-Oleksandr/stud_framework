@@ -33,12 +33,10 @@ class UserController
             throw new AuthRequiredException('name or password or email = null');
         } else {
             if ($model->checkUserEmail($email) == true) {
-                echo 'На данную почту уже зарегистрирован аккаунт';
-                die;
+                return 'На данную почту уже зарегистрирован аккаунт';
             } else {
                 if ($password != $passwordConfirm) {
-                    echo 'Повторный пароль не совпал';
-                    die;
+                    return 'Повторный пароль не совпал';
                 }
     
                 $created_at = date('Y-m-d');

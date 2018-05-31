@@ -29,11 +29,12 @@ class CORS implements LayerInterface
         } else {
             $response = $next($object);
         }
-        
+
         $response->setHeader('Access-Control-Allow-Credentials', 'true');
         $response->setHeader('Access-Control-Allow-Origin', 'http://0.0.0.0:1024');
         $response->setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding, APIToken, APIKey');
         $response->setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT, PATCH');
+        
         return $response;
     }
 }
