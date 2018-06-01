@@ -77,7 +77,7 @@ abstract class Model
      * @return array
      */
     public function getList() {
-        $sql = 'SELECT * FROM `' . $this->tableName . '` WHERE `'.$this->sortStatusTwo.'` = ' . $this->param . ' ';
+        $sql = 'SELECT * FROM `' . $this->tableName . '` WHERE `'.$this->sortStatusOne.'` = ' . $this->param . ' ';
 
         return $this->dbo->setQuery($sql)->getList(get_class($this));
     }
@@ -93,26 +93,4 @@ abstract class Model
         
         return $this->dbo->setQuery($sql)->getList(get_class($this));
     }
-
-    /**
-     * Get categories-list of records
-     *
-     * @return array
-     */
-    public function getListCategory() {
-        $sql = 'SELECT * FROM `' . $this->tableName . '` ';       
-        
-        return $this->dbo->setQuery($sql)->getList(get_class($this));
-    }
-
-    public function getListCity() {
-
-        $sql = 'SELECT * , `city`.`city` AS `city` 
-        FROM `region` 
-        INNER JOIN `city` ON `city`.`id_region` = `region`.`id` ';       
-        
-        return $this->dbo->setQuery($sql)->getList(get_class($this));
-    }
-
-
 }
