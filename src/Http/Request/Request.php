@@ -85,7 +85,7 @@ class Request
      *
      * @return null
      */
-    public function get(string $name, $default = null, string $type = 'raw'){
+    public function get(string $name, $default = null, string $type){
 
         $value = $this->raw_data[$name] ?? $default;
 
@@ -134,10 +134,14 @@ class Request
      *
      * @return mixed
      */
-    public function filterVar($data, string $type = 'raw') {
+    public function filterVar($data, string $type) {
 
-        //@TODO: Add some filtration for data here!
-
-        return $data;
+        if ($type == 'string') {
+            $data = htmlspecialchars(strip_tags(addslashes($data)));
+            return $data;
+        }
+        if ($type == 'something') {
+            return $data;
+        }  
     }
 }
