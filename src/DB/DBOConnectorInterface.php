@@ -41,6 +41,14 @@ interface DBOConnectorInterface
     public function getResult(&$target);
 
     /**
+     * Get single num result
+     *
+     * @param $target
+     * @return mixed
+     */
+    public function getArray(&$target);
+
+    /**
      * Get list of resulting rows
      *
      * @param string $targetClass

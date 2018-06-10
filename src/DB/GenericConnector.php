@@ -93,6 +93,18 @@ class GenericConnector implements DBOConnectorInterface
         return $result;
     }
 
+    public function getArray(&$target) {
+
+        if($this->statement){
+            $this->statement->setFetchMode( \PDO::FETCH_INTO, $target );
+            $result = $this->statement->fetch( \PDO::FETCH_NUM );
+        } else {
+            $result = null;
+        }
+
+        return $result;
+    }
+
     /**
      * Get results
      *
