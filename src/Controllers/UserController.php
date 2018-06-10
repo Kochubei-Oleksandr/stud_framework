@@ -74,7 +74,7 @@ class UserController
     public function login(Request $request, UserModel $model, DBOConnectorInterface $dbo) {
         
         if($login = $request->get('login', '', 'string')) {
-            $user = $model->findByCredentials($login, $request->get('password', ''));
+            $user = $model->findByCredentials($login, $request->get('password', '', 'string'));
         }
         if(empty($user)) {
             throw new AuthRequiredException('Bad access credentials provided');
