@@ -33,19 +33,6 @@ class UserModel extends Model
         $sql = sprintf("SELECT * FROM `%s` WHERE `email`='%s'", $this->tableName, $email);
         return $this->dbo->setQuery($sql)->getSuccess($this);
     }
-
-    /**
-     * Find user by access token
-     *
-     * @param $token
-     *
-     * @return mixed
-     */
-    public function findByToken($token){
-        $token = filter_var($token, FILTER_SANITIZE_STRING);
-        $sql = sprintf("SELECT * FROM `%s` WHERE `token`='%s'", $this->tableName, $token);
-        return $this->dbo->setQuery($sql)->getResult($this);
-    }
     
     public function saveUser($name, $role, $password, $email, $created_at, $token){
         $sql = sprintf("INSERT INTO `%s` (`name`,`id_role_user`,`password`,`email`,`created_at`,`token`) VALUES

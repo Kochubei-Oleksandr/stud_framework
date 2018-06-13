@@ -56,6 +56,19 @@ abstract class Model
     }
 
     /**
+     * Find user by access token
+     *
+     * @param $token
+     *
+     * @return mixed
+     */
+    public function findByToken($token){
+        $token = filter_var($token, FILTER_SANITIZE_STRING);
+        $sql = sprintf("SELECT * FROM `%s` WHERE `token`='%s'", $this->tableName, $token);
+        return $this->dbo->setQuery($sql)->getResult($this);
+    }
+
+    /**
      * Save record state to db
      *
      * @return bool
