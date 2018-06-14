@@ -55,6 +55,7 @@ class UserController
 
             return [
                 'user_id' => $user->id,
+                'user_email' => $user->email,
                 'api_token' => $user->token,
                 'name' => $user->name,
                 'user_role' => $user->id_role_user
@@ -86,6 +87,7 @@ class UserController
         if ($tokk == true) {
             return [
                 'user_id' => $user->id,
+                'user_email' => $user->email,
                 'api_token' => $user->token,
                 'name' => $user->name,
                 'user_role' => $user->id_role_user
